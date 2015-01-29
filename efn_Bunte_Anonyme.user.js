@@ -5,6 +5,7 @@
 // @include     https://www.community.e-fellows.net/forum/thread/view/forumid/*/id/*
 // @version     1
 // @grant       none
+// @updateURL   https://github.com/morgil/efn-bunte-anonyme/raw/master/efn_Bunte_Anonyme.user.js
 // ==/UserScript==
 
 
