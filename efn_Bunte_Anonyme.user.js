@@ -30,6 +30,13 @@ $(document).ready(function()
         return crcTable;
     };
 
+    var checkColor = function(colorstr) {
+        var r = parseInt(colorstr.substring(0,2),16);
+        var g = parseInt(colorstr.substring(2,4),16);
+        var b = parseInt(colorstr.substring(4,6),16);
+        return !((r > 150 && g < 80 && b < 80) || (r < 80 && g < 80 && b > 150));
+    }
+
     var crc32 = function(str) {
         var crcTable = window.crcTable || (window.crcTable = makeCRCTable());
         var crc = 0 ^ (-1);
@@ -44,7 +51,11 @@ $(document).ready(function()
     $('div.qandaAnonymousUserImage').each(function (index) {
         $(this).css('backgroundImage', anonym_transparent);
         anonNr = $(this).children('div.qandaAnonymousUserImageNumber').first().html();
-        shirtColor = crc32(document.location.href.match(/\/id\/(\d+)/)[1] + anonNr).toString(16).substring(0,6);
+        var seed = 0;
+        do {
+            shirtColor = crc32(document.location.href.match(/\/id\/(\d+)/)[1] + anonNr + seed).toString(16).substring(0,6);
+            seed += 1337;
+        } while (!checkColor(shirtColor));
         $(this).css('backgroundColor', '#'+shirtColor);
     });
 
